@@ -5,3 +5,37 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+.footer {
+  width: 100%;
+
+  color: black;
+  text-align: center;
+}
+
+/* ESTO ES PARA QUITAR LA LINEA AZUL DEBAJO DEL TÍTULO EN EL NAVBAR */
+.nounderline {
+  text-decoration: none;
+}
+
+.logotip {
+  font-family: "Rubik Burned", cursive;
+  font-size: 80px;
+}
+
+.logotipNavbar {
+  font-family: "Rubik Burned", cursive;
+  font-size: 30px;
+  color: black;
+  text-decoration: none;
+}
+
+.logocolor {
+  color: black;
+}
+
+.textNavbar {
+  color: black;
+  text-decoration: none;
+  font-family: "Rubik Burned", cursive;
+  font-size: 18px;
+}

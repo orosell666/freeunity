@@ -58,9 +58,16 @@ def snowparks():
     location = request.json.get('location')
     country = request.json.get('country')
     shapers = request.json.get('shapers')
-    bullydrivers = request.json.get('bulydrivers')
+    bullydrivers = request.json.get('bullydrivers')
+    parkweb = request.json.get('parkweb')
+    image_url = request.json.get('image_url')
+    comment = request.json.get('comment')
+    machines = request.json.get('machines')
+    country_id = request.json.get('country_id')
+    companies_id = request.json.get('companies_id')
+    
 
-    snowparks= Snowparks(id = id, name = name, resort = resort , location = location , country = country , shapers = shapers , bullydrivers = bullydrivers)
+    snowparks= Snowparks(id = id, name = name, resort = resort , location = location , country = country , shapers = shapers , bullydrivers = bullydrivers, parkweb = parkweb, image_url = image_url, comment = comment, machines = machines, country_id = country_id, companies_id = companies_id)
     db.session.add(snowparks)
     db.session.commit()
     
@@ -73,6 +80,14 @@ def snowparks():
         "country": snowparks.country,
         "shapers": snowparks.shapers,
         "bullydrivers": snowparks.bullydrivers,
+        "parkweb": snowparks.parkweb,
+        "image_url": snowparks.image_url,
+        "comment": snowparks.comment,
+        "machines": snowparks.machines,
+        "country_id": snowparks.country_id,
+        "companies_id": snowparks.companies_id
+        
+
     }
     return jsonify(data_response), 200
 
@@ -83,16 +98,30 @@ def GetSnowparks():
 
     return jsonify(data), 200
 
-@api.route('/snowparks/<int:id>', methods=['GET'])
+@api.route('/selectedsnowparks/<int:id>', methods=['GET'])
 def GetSnowparksDetail(id):
-    snowpark = Snowparks.query.get(id)
+    snowpark = Snowparks.query.filter_by(id = id)
 
-    return jsonify(snowpark.serialize()), 200
+    all_parks = list(map(lambda x: x.serialize(), snowparks()))
+
+    return jsonify(all_parks), 200
+
+@api.route('/snowparkbycountry/<country>', methods=['GET'])
+def GetSnowparkByCountry(country):
+
+    snowparks = Snowparks.query.filter_by(country_id = country)
+
+    all_parks = list(map(lambda x: x.serialize(), snowparks))
+
+    return jsonify(all_parks), 200
+
 
 @api.route('/companies', methods=['POST'])
 def GetCompany():
     name = request.json.get('name')
     web = request.json.get('web')
+    location = request.json('location')
+
 
     companies = Companies(name= name)
     db.session.add(companies)
@@ -137,6 +166,17 @@ def getCountries():
         listCountries.append(countries.serialize()) 
 
     return jsonify(listCountries), 200
+
+@api.route('/loadcountries/<int:id>', methods=['GET'])
+def getParkByCountry(id):
+    
+   countries = Country.query.all() #creo que tengo que filtar el quiery. filter_by mirar-lo!!! si filtra hacer un map
+   listCountries = []
+   for countries in countries:
+        listCountries.append(countries.serialize()) 
+
+   return jsonify(countries.serialize()), 200
+#list(map(lambda countries: countries.serialize(), countries))
 
 @api.route('/jobs', methods=['POST'])
 def GetJobs():

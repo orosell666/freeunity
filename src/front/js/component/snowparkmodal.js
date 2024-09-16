@@ -1,46 +1,39 @@
-import React, { useContext, useEffect } from "react";
-import { Context } from "../store/appContext";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
 
-export const SnowparkModal = () => {
-    const { store, actions } = useContext(Context);
 
-    useEffect(() => {
+export const SnowparkModal = (props) => {
+    const imageSize = {
+        width: "500",
 
-        actions.LoadSnowpark(store.snowparks);
-
-    }, [])
-
+    }
 
     return (
-        //store.snowparks.map(),
 
-        < div >
+        <div className="modal fade" id={`exampleModal_${props.id}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-lg">
+                <div className="modal-content">
 
-            <div className="card col-md-3 mb-3 me-3 shadow p-3 mb-5 bg-body rounded" >
 
-                <div className="card-body">
-                    <img src="https://c.tenor.com/UH_6a9UuIMMAAAAC/cool.gif" className="card-img-top" alt="..." />
-                    <h5 className="card-title">Park Name</h5>
-                    <p className="card-text">{ } Resort:</p>
-                    <p className="card-text">{ } Location:</p>
-                    <p className="card-text">{ } Country:</p>
-                    <p className="card-text">{ } Shapers:</p>
-                    <p className="card-text">{ } Bullydrivers:</p>
-                    <p className="card-text">{ } Web:</p>
-                    <p className="card-text">{ } Machines:</p>
-                    <p className="card-text">{ } image_url:</p>
-                    <p className="card-text">{ } Comment:</p>
+                    <div className="modal-body">
+                        <h5 className="modal-title"><strong>{props.name}</strong></h5>
+                        <img src={props.image_url} className="image-fluid" style={imageSize} alt="..." />
 
+                        <p className="modal-text">{props.resort}, {props.location}, {props.country}</p>
+                        <p className="modal-text" >Shapers: {props.shapers}</p>
+                        <p className="modal-text">Bullydrivers: {props.bullydrivers}</p>
+                        <p className="modal-text" >Web: {props.web}</p>
+                        <p className="modal-text">Machines: {props.machines}</p>
+                        <p className="modal-text">Company in charge: {props.companies}</p>
+                        <p className="modal-text">Comment: {props.comment}</p>
+                    </div>
 
 
                 </div>
             </div>
-
-
-        </div >
-
+        </div>
 
     )
+
+
 
 }

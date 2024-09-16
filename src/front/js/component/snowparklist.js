@@ -2,44 +2,42 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { SnowparkModal } from "./snowparkmodal"
 import { Link, useHistory } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-export const SnowparkCard = () => {
+export const SnowparkCard = (props) => {
     const { store, actions } = useContext(Context);
 
-    useEffect(() => {
-
-        actions.LoadSnowpark(store.snowparks);
-
-    }, [])
-
-
     return (
-        //store.snowparks.map(),.
+        store.snowparks.map((value, index) => {
 
-        < div >
+            const footerposition = {
+                pb: "20px"
+            }
+            return (
 
-            <div className="card col-md-3 mb-3 me-3 shadow p-3 mb-5 bg-body rounded" >
+                <div className="card col-md-3 mb-3 me-3 shadow  mb-5 bg-body rounded" >
+                    <h5 className="card-title">{value.name}</h5>
+                    <img src={value.image_url} className="card-img-top" alt="..." />
+                    <div className="card-body ">
 
-                <div className="card-body">
-                    <img src="https://c.tenor.com/UH_6a9UuIMMAAAAC/cool.gif" className="card-img-top" alt="..." />
-                    <h5 className="card-title">hello hello</h5>
-                    <p className="card-text">{store.snowparks.name}</p>
-                    <button type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">More Info</button>
+                        <p className="card-text">{value.resort}</p>
+                        <p className="card-text">Shapers: {value.shapers}</p>
+                        <p className="card-text">Catdrivers: {value.bullydrivers}</p>
 
-                    <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog modal-lg">
-                            <div className="modal-content">
-                                <SnowparkModal />
+                        <div className="card-footer bg-transparent " >
+                            <div className="ms-3 me-3">
+                                <button type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target={`#exampleModal_${value.id}`}>More Info</button>
+                                <SnowparkModal id={value.id} name={value.name} resort={value.resort} location={value.location} country={value.country} shapers={value.shapers} bullydrivers={value.bullydrivers} web={value.web} machines={value.machines} comment={value.comment} />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-
-        </div >
-
-
+            )
+        })
     )
 
 }
+SnowparkCard.propTypes = {
+    snowparks: PropTypes.any
+};

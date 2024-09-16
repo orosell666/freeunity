@@ -55,7 +55,14 @@ class Snowparks(db.Model):
 
 
     def __repr__(self):
-        return '<Snowparks >' %self.id
+        return #'<Snowparks >' %self.id 
+        {
+             "snowparks.id": self.id,
+
+        }
+    
+    def __str__(self):
+        return self.name
 
     def serialize(self):
 
@@ -70,8 +77,9 @@ class Snowparks(db.Model):
             "parkweb": self.parkweb,
             "image_url": self.image_url,
             "comment": self.comment,
-            "machines": self.machines
-            
+            "machines": self.machines,
+            "country_id": self.country_id,
+            "companies_id": self.companies_id
 
 
         }
@@ -106,7 +114,7 @@ class Country(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "country_flag,": self.country_flag
+            "country_flag": self.country_flag
         }
 
 class Jobs(db.Model):

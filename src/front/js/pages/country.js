@@ -1,114 +1,85 @@
-import React, { useEffect, useContext } from "react";
-
+import React, { useEffect, useContext, useState } from "react";
+import { SnowparkModal } from "../component/snowparkmodal"
 import { Context } from "../store/appContext";
+import PropTypes from 'prop-types';
 
-export const Country = () => {
+export const Country = (props) => {
 	const { store, actions } = useContext(Context);
 
+	const [parks, setparks] = useState([]);
 	useEffect(() => {
 
+
+		actions.LoadSnowpark(store.snowparks);
 		actions.LoadCountryParks();
 	}, [])
-	//const filtered = snowparks.filter(snowpark => {
 
-
-	//return snowpark.country === 'Austria';
-	//	});
+	const GetParks = async (id) => {
+		console.log(id)
+		const result = await actions.LoadSelectedSnowparkByCountry(id)
+		setparks(result)
+	}
 
 
 	return (
-		<div>
-			<div className="container">
-				<h1 className="container mt-5 text-center">Here you can see the parks filtered by Country</h1>
-				<div className="container text-center mt-5">
-					<h2 >Austria</h2><img src="https://cdn-icons-png.flaticon.com/512/555/555490.png" width={60} height={50} className=" justify-content-center" alt="" /></div>
-				<div className="card-body text-center">
-					<div className="card col-md-3 mb-3 me-3 shadow p-3 mb-5 bg-body rounded mt-5" >
-						<img src="https://i.gifer.com/YJ4u.gif" className="card-img-top img-fluid mx-auto " alt="" />
-						<div className="card-body text-center">
-							<h5 className="card-title text"><strong>Park{ }</strong></h5>
-							<p className="card-text">Location: { }</p>
-							<p className="card-text">Number of shapers: { }</p>
-							<p className="card-text">Number of catdrivers{ }</p>
-							<p className="card-text">Company in charge: { }</p>
-						</div>
-					</div>
-				</div>
-				<div className="container">
-					<div className="container text-center mt-5">
-						<h2 >Switzerland</h2><img src=" https://cdn-icons-png.flaticon.com/512/555/555582.png" width={60} height={50} className=" justify-content-center" alt="" /></div>
-					<div className="card col-md-3 mb-3 me-3 shadow p-3 mb-5 bg-body rounded mt-5" >
-						<img src="https://i.gifer.com/1Ke9.gif" className="card-img-top img-fluid mx-auto " alt="" />
-						<div className="card-body text-center">
-							<h5 className="card-title text"><strong>Park{ }</strong></h5>
-							<p className="card-text">Location: { }</p>
-							<p className="card-text">Number of shapers: { }</p>
-							<p className="card-text">Number of catdrivers{ }</p>
-							<p className="card-text">Company in charge: { }</p>
-						</div>
-					</div>
-				</div>
-				<div className="container">
-					<div className="container text-center mt-5">
-						<h2 >Italy</h2><img src="  https://cdn-icons.flaticon.com/png/512/3373/premium/3373278.png?token=exp=1659623517~hmac=b0ad465754de665770269fbf158a38fc" width={60} height={50} className=" justify-content-center" alt="" /></div>
-					<div className="card col-md-3 mb-3 me-3 shadow p-3 mb-5 bg-body rounded mt-5" >
-						<img src="https://c.tenor.com/UH_6a9UuIMMAAAAC/cool.gif" className="card-img-top img-fluid mx-auto " alt="" />
-						<div className="card-body text-center">
-							<h5 className="card-title text"><strong>Park{ }</strong></h5>
-							<p className="card-text">Location: { }</p>
-							<p className="card-text">Number of shapers: { }</p>
-							<p className="card-text">Number of catdrivers{ }</p>
-							<p className="card-text">Company in charge: { }</p>
-						</div>
-					</div>
-				</div>
-				<div className="container">
-					<div className="container text-center mt-5">
-						<h2 >France</h2><img src="https://cdn-icons-png.flaticon.com/512/206/206657.png" width={60} height={50} className=" justify-content-center" alt="" /></div>
-					<div className="card col-md-3 mb-3 me-3 shadow p-3 mb-5 bg-body rounded mt-5" >
-						<img src="https://c.tenor.com/UH_6a9UuIMMAAAAC/cool.gif" className="card-img-top img-fluid mx-auto " alt="" />
-						<div className="card-body text-center">
-							<h5 className="card-title text"><strong>Park{ }</strong></h5>
-							<p className="card-text">Location: { }</p>
-							<p className="card-text">Number of shapers: { }</p>
-							<p className="card-text">Number of catdrivers{ }</p>
-							<p className="card-text">Company in charge: { }</p>
-						</div>
-					</div>
-				</div>
-				<div className="container">
-					<div className="container text-center mt-5">
-						<h2 >Spain</h2><img src=" https://cdn-icons-png.flaticon.com/512/555/555635.png" width={60} height={50} className=" justify-content-center" alt="" /></div>
-					<div className="card col-md-3 mb-3 me-3 shadow p-3 mb-5 bg-body rounded mt-5" >
-						<img src="https://c.tenor.com/UH_6a9UuIMMAAAAC/cool.gif" className="card-img-top img-fluid mx-auto " alt="" />
-						<div className="card-body text-center">
-							<h5 className="card-title text"><strong>Park{ }</strong></h5>
-							<p className="card-text">Location: { }</p>
-							<p className="card-text">Number of shapers: { }</p>
-							<p className="card-text">Number of catdrivers{ }</p>
-							<p className="card-text">Company in charge: { }</p>
-						</div>
-					</div>
-				</div>
-				<div className="container">
-					<div className="container text-center mt-5">
-						<h2 >Andorra</h2><img src=" https://cdn-icons-png.flaticon.com/512/206/206807.png" width={60} height={50} className=" justify-content-center" alt="" /></div>
-					<div className="card col-md-3 mb-3 me-3 shadow p-3 mb-5 bg-body rounded mt-5" >
-						<img src="https://c.tenor.com/UH_6a9UuIMMAAAAC/cool.gif" className="card-img-top img-fluid mx-auto " alt="" />
-						<div className="card-body text-center">
-							<h5 className="card-title text"><strong>Park{ }</strong></h5>
-							<p className="card-text">Location: { }</p>
-							<p className="card-text">Number of shapers: { }</p>
-							<p className="card-text">Number of catdrivers{ }</p>
-							<p className="card-text">Company in charge: { }</p>
-						</div>
-					</div>
-				</div>
 
+		<div className="container">
+			<h1 className="container mt-5 text-center">Take a look in your Country</h1>
+			<div className="container-fluid mx-auto">
+				{
+					store.countries.map((value, index) => {
 
+						return (
+							<div className="d-inline-flex mx-auto">
+								<div className="btn-toolbar d-inline-flex" role="toolbar" aria-label="Toolbar" onClick={() => {
+									GetParks(value.id)
+								}}>
+									<div className="btn-group me-2" role="group" aria-label="First group">
+										<button type="button" className="btn ">{value.name}     <img src={value.country_flag} width={35} height={28} alt="" /></button>
+									</div>
+								</div>
+							</div>
+						)
+					})
+				}
 			</div>
+			<div className="container">
+				<div className="card-group mt-5 ">
+					<div className="row g-4 d-flex flex-row flex-nowrap overflow-auto">
+						{
+							parks.map((value, index) => {
+								const footerposition = {
+									pb: "20px"
+								}
+
+								return (
+
+									<div className="card col-md-4 mb-3 me-3 shadow  mb-5 bg-body rounded" key={index}>
+										<div className="card-body text-center" >
+											<img id={`id${value.id}`} src={value.image_url} className="card-img-top img-fluid  " alt="" />
+											<h5 className="card-title" id={`id${value.id}`}><strong>{value.name}</strong></h5>
+											<p className="card-text" id={`id${value.id}`}>{value.resort}</p>
+											<p className="card-text" id={`id${value.id}`}>Shapers: {value.shapers}</p>
+											<p className="card-text" id={`id${value.id}`}>Catdrivers: {value.bullydrivers}</p>
+											<p className="card-text" id={`id${value.id}`}>Company in charge: {value.companies}</p>
+
+											<div className="card-footer bg-transparent">
+												<button type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target={`#exampleModal_${value.id}`}>More Info</button>
+												<SnowparkModal id={value.id} name={value.name} resort={value.resort} location={value.location} country={value.country} shapers={value.shapers} bullydrivers={value.bullydrivers} web={value.web} machines={value.machines} comment={value.comment} />
+											</div>
+
+										</div>
+									</div>
 
 
+
+
+								)
+							})
+						}
+					</div>
+				</div >
+			</div >
 
 
 
@@ -116,5 +87,10 @@ export const Country = () => {
 
 		</div>
 
+
 	)
+
+
+
 }
+
